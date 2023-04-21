@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css">
+  </head>
+<body>
+    <div class="background">
+        <div class="transbox">
+<h2>Sakshi Quiz</h2>
+
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Ready</button>
+
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content" action="niv.html">
+    <div class="container">
+  <b style="font-size:300%; font-family:courier;">Welcome</b><br>
+  <br><br>
+  <b style="font-size:100%; font-family:verdana;">Please fill in this form to start the quiz.</b>
+      <hr>
+      <label for="email"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="email" required>
+
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+  <br><br>By starting this quiz you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn"><b>Cancel</b></button>
+        <button type="submit" class="signupbtn"><b>Ready</b></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="index.js"></script>
+</div>
+</div>
+</body>
+</html>

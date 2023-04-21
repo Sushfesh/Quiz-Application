@@ -1,0 +1,233 @@
+<html>
+    <style>
+        .option{
+            background-color: #a3cbbd;
+            color: rgb(77, 73, 73);
+            padding: 14px 20px;
+            margin: 8px 0;
+            font-weight: bold;
+            font-size: large;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+            border: none;
+            cursor: pointer;
+            height: 20%;
+            width: 20%;
+            opacity: 1.0;
+        }
+        #sub{
+            background-color: #aa0404;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            font-size:medium;
+            border: none;
+            cursor: pointer;
+            height: 7%;
+            width: 7%;
+            opacity: 0.9;
+        }
+        .btn-text-right{
+	text-align: right;
+}
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<body style="text-align: center;">
+    <br><br>
+    <div class="btn-text-right">
+    <button type="button" class="btn btn-default btn-sm" onclick="window.location.href = 'index.html';">
+        <span class="glyphicon glyphicon-log-out"></span> Log out
+      </button>
+    </div>
+<p id="question" style="font-size:150%; font-family:courier; text-align: center;"></p><hr>
+<button id="option1" class="option" onclick="op1()" class="favorite styled"></button>
+<button id="option2" class="option" onclick="op2()"></button>
+<button id="option3" class="option" onclick="op3()"></button>
+<button id="option4" class="option" onclick="op4()"></button>
+<p id="answer"></p>
+<button onclick="hint()" id="sub">&#9873;Hint</button>
+<button onclick="next()" id="sub">Next</button>
+<h3 id="show" onclick="clickMe()" style="text-decoration-color: #aa0404;"> </h3>
+<p id="result"></p>
+<script>
+let allQuestions = [
+"1. Which of these features of OOP would indicate code reusability?",
+"2. Which of these specifiers would be applied to the constructors only?",
+"3. The memory that is allocated for any objects is ____________.",
+"4. Which of these classes is a specialization of some more general template classes?",
+"5. A derived class is also called a ______________.",
+"6. Which of these inheritances is shown in case we inherit some base class from another class, then one of the classes derives it?",
+"7.  Hierarchical inheritance could be some subset of _________________ inheritance.",
+"8. __________ is the universal handler class for exceptions.",
+"9. Which of these types of values result from a delete operator?",
+"10. Which of these attributes can we use if we want to get the actual size of any array?"
+];
+
+let allOptions = [
+["Polymorphism","Abstraction","Inheritance","Encapsulation"],
+["Explicit","Implicit","Protected","Public"],
+["Cache","HDD","ROM","RAM"],
+["Integer","Maths","String","Digit"],
+["Small class","Subclass","Noticebale class","Big class"],
+["Single","Multiple","Multi-Level","Hierarchical"],
+["Multi-level","Single level","Multiple","Hybrid"],
+["Maths","Object","Exceptions","Errors"],
+["null","null pointer","void pointer","void"],
+["Array_name.length","Size.Array","length.Array_name","Array.Size"],
+];
+let  hintanswer= [
+"The assets that an individual bequeaths to their loved ones after they pass away.","Warning that media (pictures, films or music) contains adult content","This isn't to be confused with long-term data that's stored on your hard drive, which stays there even when your computer is turned off.","An array data structure of bytes (or words) that stores a sequence of elements, typically characters, using some character encoding.",
+" It inherits the properties of the superclass and also contains attributes of its own.","A two-level model which allows for grouping of child outcomes within schools would include residuals at the child and school level.","A person whose background is a blend of two diverse cultures or traditions.",
+"An instance or case not conforming to the general rule.","void","ints are 4 bytes long, so n is 68."
+];
+let correctAnswer = [
+"Inheritance","Explicit","RAM","String",
+"Subclass","Multi-level","Hybrid",
+"Exceptions","Empty space.", "Array.Size"
+];
+let selectedOption = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let totalQues=10;
+let option;
+var i = -1;
+var res=0;
+var click=0;
+const myTimeout = setTimeout(next, 0);
+
+function next() {
+    if(i < 9){
+        i++;
+    }
+    document.getElementById('option1').style.backgroundColor="#a3cbbd";
+    document.getElementById('option2').style.backgroundColor="#a3cbbd";
+    document.getElementById('option3').style.backgroundColor="#a3cbbd";
+    document.getElementById('option4').style.backgroundColor="#a3cbbd";
+    document.getElementById('option1').disabled=false;
+    document.getElementById('option2').disabled=false;
+    document.getElementById('option3').disabled=false;
+    document.getElementById('option4').disabled=false;
+    document.getElementById("question").innerHTML = allQuestions[i];
+    document.getElementById("option1").innerHTML = allOptions[i][0];
+    document.getElementById("option2").innerHTML = allOptions[i][1];
+    document.getElementById("option3").innerHTML = allOptions[i][2];
+    document.getElementById("option4").innerHTML = allOptions[i][3];
+    document.getElementById("answer").innerHTML = '';
+    
+    if(document.getElementById('option1').clicked == true)
+    {
+        click=0;
+    }
+    if(i == 9){
+        document.getElementById("show").innerHTML = "<u>Click here to see result</u>";
+    }
+}
+//--------function for displaying Answer
+function clickMe(){
+    final();
+}
+function op1()
+{
+    display();
+    click=0;
+    document.getElementById('option1').style.backgroundColor="green";
+    if(correctAnswer[i]==allOptions[i][click])
+    {
+        res=res+10;
+        document.getElementById('option3').style.backgroundColor="red";
+        document.getElementById('option2').style.backgroundColor="red";
+        document.getElementById('option4').style.backgroundColor="red";
+    }else{
+        document.getElementById('option1').style.backgroundColor="red";
+        document.getElementById('option3').style.backgroundColor="red";
+        document.getElementById('option2').style.backgroundColor="red";
+        document.getElementById('option4').style.backgroundColor="red";
+    }
+}
+function op2()
+{
+    display();
+    click=1;
+    document.getElementById('option2').style.backgroundColor="green";
+    if(correctAnswer[i]==allOptions[i][click])
+    {
+        res=res+10;
+        document.getElementById('option1').style.backgroundColor="red";
+        document.getElementById('option3').style.backgroundColor="red";
+        document.getElementById('option4').style.backgroundColor="red";
+    }else{
+        document.getElementById('option1').style.backgroundColor="red";
+        document.getElementById('option3').style.backgroundColor="red";
+        document.getElementById('option2').style.backgroundColor="red";
+        document.getElementById('option4').style.backgroundColor="red";
+    }
+}
+function op3()
+{
+    display();
+    click=2;
+    document.getElementById('option3').style.backgroundColor="green";
+    // document.getElementById('option1').disabled=true;
+    // document.getElementById('option2').disabled=true;
+    // document.getElementById('option4').disabled=true;
+    if(correctAnswer[i]==allOptions[i][click])
+    {
+        res=res+10;
+        document.getElementById('option1').style.backgroundColor="red";
+        document.getElementById('option2').style.backgroundColor="red";
+        document.getElementById('option4').style.backgroundColor="red";
+    }else{
+        document.getElementById('option1').style.backgroundColor="red";
+        document.getElementById('option3').style.backgroundColor="red";
+        document.getElementById('option2').style.backgroundColor="red";
+        document.getElementById('option4').style.backgroundColor="red";
+    }
+}
+function op4()
+{
+    display();
+    click=3;
+    document.getElementById('option4').style.backgroundColor="green";
+    if(correctAnswer[i]==allOptions[i][click])
+    {
+        res=res+10;
+        document.getElementById('option1').style.backgroundColor="red";
+        document.getElementById('option2').style.backgroundColor="red";
+        document.getElementById('option3').style.backgroundColor="red";
+    }else{
+        document.getElementById('option1').style.backgroundColor="red";
+        document.getElementById('option3').style.backgroundColor="red";
+        document.getElementById('option2').style.backgroundColor="red";
+        document.getElementById('option4').style.backgroundColor="red";
+    }
+}
+function final(){
+    if(res>90)
+    {
+        document.getElementById("result").innerHTML = "<b>Brvaoo!!<br>Quiz Completed</b>, Your final score : "+res;
+    }
+    if(res>80 && res<90)
+    {
+        document.getElementById("result").innerHTML = "<b>On the way to level up!!<br>Quiz Completed</b>, Your final score : "+res;
+    }
+    if(res>70 && res<60)
+    {
+        document.getElementById("result").innerHTML = "<b>Better than 50%!!<br>Quiz Completed</b>, Your final score : "+res;
+    }
+    else
+    {
+        document.getElementById("result").innerHTML = "<b>Need to work a bit!!<br> Quiz Completed</b>, Your final score : "+res;
+    }
+    
+}
+function display(){
+    document.getElementById("answer").innerHTML = "Correct : "+correctAnswer[i];
+}
+function hint(){
+    document.getElementById("answer").innerHTML = "&#128161; Hint : "+ hintanswer[i];
+}
+
+</script>
+
+</body>
+</html>
